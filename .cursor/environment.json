@@ -1,0 +1,10 @@
+{
+  "name": "Beam Design Automation",
+  "install": "sudo apt-get update && sudo apt-get install -y python3-venv python3-dev && python3 -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt",
+  "terminals": [
+    {
+      "name": "web",
+      "command": ". .venv/bin/activate && python app.py"
+    }
+  ]
+}

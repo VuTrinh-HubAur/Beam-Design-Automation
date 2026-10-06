@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beam Design Automation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⌁</span>
+      <div>
+        <h1>Beam Design Automation</h1>
+        <p>Simply supported beam analysis &amp; automated steel section selection</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel inputs">
+      <h2>Inputs</h2>
+      <form id="beam-form">
+        <div class="field">
+          <label for="span">Span (m)</label>
+          <input type="number" id="span" name="span" value="6" step="0.1" min="0.1" required />
+        </div>
+
+        <fieldset>
+          <legend>Point loads (kN @ m)</legend>
+          <div id="point-loads"></div>
+          <button type="button" class="ghost" data-add="point">+ Add point load</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Distributed loads (kN/m from–to m)</legend>
+          <div id="distributed-loads"></div>
+          <button type="button" class="ghost" data-add="udl">+ Add distributed load</button>
+        </fieldset>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="allowable_stress_mpa">Allowable stress (MPa)</label>
+            <input type="number" id="allowable_stress_mpa" value="165" step="1" />
+          </div>
+          <div class="field">
+            <label for="deflection_limit_ratio">Deflection limit (span/…)</label>
+            <input type="number" id="deflection_limit_ratio" value="360" step="10" />
+          </div>
+          <div class="field">
+            <label for="youngs_modulus_gpa">E (GPa)</label>
+            <input type="number" id="youngs_modulus_gpa" value="210" step="1" />
+          </div>
+          <div class="field">
+            <label for="moment_of_inertia_cm4">Trial I (cm⁴)</label>
+            <input type="number" id="moment_of_inertia_cm4" value="10000" step="100" />
+          </div>
+        </div>
+
+        <button type="submit" class="primary">Analyse &amp; Design</button>
+      </form>
+    </section>
+
+    <section class="panel results">
+      <h2>Results</h2>
+      <div id="status" class="status">Enter loads and press <strong>Analyse &amp; Design</strong>.</div>
+
+      <div id="summary" class="summary hidden"></div>
+      <div id="selected" class="selected hidden"></div>
+
+      <div id="diagrams" class="diagrams hidden">
+        <img id="img-shear" alt="Shear force diagram" />
+        <img id="img-moment" alt="Bending moment diagram" />
+        <img id="img-deflection" alt="Deflection diagram" />
+      </div>
+
+      <details id="checks-wrap" class="hidden">
+        <summary>Section check table</summary>
+        <div id="checks"></div>
+      </details>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
